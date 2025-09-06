@@ -98,38 +98,98 @@
   <!-- ========================= -->
   <script type="text/markdown" id="about-src">
 # Hi, I'm Eric 👋
-I'm a USC MSCS student and UCSB biophysics grad interested in data, ML, and computational biology. I build experimental–computational pipelines, analyze behavior in zebrafish, and ship clean, reliable software.
+I'm a USC **M.S. in Computer Science** student and UCSB **B.S. in Physics (CCS, High Honors; minor in Statistics & Data Science, GPA 3.93/4.0)**. I build experimental–computational pipelines, clean data systems, and physics‑informed models — recently focusing on **larval zebrafish locomotion** and lightweight ML for analytics. I love turning messy measurements into clear, testable insights and polished visuals.
 
-- ⚙️ Languages/Tools: Python, Java, C/C++, MATLAB, R, Linux, Git
-- 📚 Interests: biophysics, data engineering, sports analytics
-- ✉️ Reach me: [email@example.com](mailto:email@example.com)
+- **Languages/Tools:** Python, Java, C/C++, R, MATLAB, SQL, Swift, Linux/Unix, Git/GitHub  
+- **Data/ML:** NumPy, Pandas, Matplotlib, Seaborn, scikit‑learn, TensorFlow/PyTorch  
+- **Methods:** Experimental design, image processing, tracking, statistical modeling, simulations, dashboards  
+- **Links:** [LinkedIn](https://www.linkedin.com/in/ezhu03/) · [GitHub](https://github.com/ezhu03) · [Email](mailto:ejzhu@usc.edu)
+
+I’m currently at USC (Viterbi) and previously researched in the **Streichan Lab** at UCSB as a Computational Biophysics Researcher (Dean’s Physics Fellow; Honors Senior Thesis). I also prototype playful tools — from **haptics in AR** to **wearables** — and run data‑driven club events.
+
+> *Mission:* build simple systems that stay fast, reproducible, and useful — from lab pipelines to data apps.
   </script>
 
   <script type="text/markdown" id="projects-src">
-### Zebrafish Group Behavior Modeling
-![Zebrafish project](assets/images/zebra-thumb.jpg)
-Built a multilayer model of larval movement; automated tracking with idtracker.ai; simulated reflection-driven navigation.
+### Zebrafish Visual Navigation — Reflection‑Guided Model (Thesis)
+![Add a figure or schematic here](assets/images/zfish_model.jpg)
+Physics‑based simulation that reproduces **edge preference** and **symmetry breaking** in half‑sanded arenas by sampling turns toward perceived reflections (Snell’s law). Validated with KS‑tests on radial/angular distributions.  
+**Highlights:** Python simulations; ABP/Vicsek inspiration; kernel‑smoothed KS workflow; speed‑distribution sampling.  
+**Links:** [Thesis PDF](assets/files/Eric_Zhu_Senior_Thesis.pdf) · [Repo](https://github.com/ezhu03/Zebrafish-Modeling)
+
+### Experimental–Computational Pipeline — idtracker.ai → Analysis
+![Placeholder for pipeline diagram or heatmaps](assets/images/pipeline.jpg)
+End‑to‑end pipeline for **tracking**, **cleaning**, and **quantifying** larval trajectories: trajectory extraction, velocity & spatial analysis, and reproducible figures. Automated microscope/camera workflows via Python + PycroManager to boost throughput.  
+**Highlights:** data loaders to tidy frames → npy; polar transforms; KDE heatmaps; robust plotting.  
+**Links:** [Repo](https://github.com/ezhu03/Zebrafish-Modeling)
+
+### Brownian vs. Probabilistic Turning — Model Comparisons
+![Add side‑by‑side sim vs. experimental heatmaps](assets/images/sim_compare.jpg)
+Compared baselines (Brownian) against a **single‑parameter turning** model and a **reflection‑following** model; matched clear/sanded distributions and reproduced half‑sanded angular asymmetry.  
+**Highlights:** parameter scans; goodness‑of‑fit KS tests; noise injection; clean APIs for new arenas.  
+**Links:** [Repo](https://github.com/ezhu03/Zebrafish-Modeling)
+
+### Vibrating Ultrasonic Hoodie — Assistive Wearable
+![Photo or wiring diagram placeholder](assets/images/ultrasonic_hoodie.jpg)
+Wearable built with **ultrasonic sensors + vibrating motors** to relay spatial information via haptics. Arduino‑based control with proximity‑triggered patterns.  
+**Highlights:** Arduino/C++; sensor fusion; quick user demo.  
+**Links:** [Repo](https://github.com/ezhu03/Vibrating-Ultrasonic-Glove)
+
+### iFeel — Vibrotactile AR Object Recognition (iOS)
+![iPhone mockup placeholder](assets/images/arkit.jpg)
+Swift app using **ARKit** and **Core Haptics** to recognize basic shapes and trigger distinct haptic feedback. Ran a small user study; presented to ~200 attendees.  
+**Highlights:** Swift; ARKit; Core Haptics; UX survey.  
+**Links:** [Repo](https://github.com/ezhu03/iFeel-Haptics)
+
+### NBA 2K Ratings Explorer
+![Histogram/line plot placeholder](assets/images/2k_ratings.jpg)
+Built statistical baselines in **R** to predict player ratings; explored stability and trends across seasons.  
+**Highlights:** scraping; regression baselines; RMarkdown report.  
+**Links:** [Demo](https://ezhu03.github.io/Predicting-2K-Ratings/) · [Repo](https://ezhu03.github.io/Predicting-2K-Ratings/)
 
 ### Spikeball Tournament Analytics
-![Spikeball](assets/images/spikeball.jpg)
-Designed a small analytics pipeline to seed brackets and summarize team ELO changes across events.
+![Bracket or ELO chart placeholder](assets/images/spikeball_elo.jpg)
+Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize events for club tournaments.  
+**Highlights:** Pandas transforms; Matplotlib visuals; CSV‑driven config.  
+**Links:** [Write‑up](#) · [Repo](#)
 
-### 2K Ratings Explorer
-![2K ratings](assets/images/2k.jpg)
-Scraped historical player ratings and built visualizations; experimented with simple regression baselines.
+> **Tip:** Replace each image with a real screenshot or figure and set links to your repos, demos, or PDFs.
   </script>
 
   <script type="text/markdown" id="resume-src">
 **Education**  
-M.S. Computer Science, University of Southern California  
-B.S. Physics (Biophysics), UC Santa Barbara
+- **University of Southern California (USC),** M.S. Computer Science — *Aug 2025–May 2027*  
+- **UC Santa Barbara (CCS),** B.S. Physics — *High Honors; Minor in Statistics & Data Science; GPA 3.93/4.0*
 
 **Experience**  
-- *Computational Biophysics Researcher — Streichan Lab*  
-  Python + MATLAB pipelines for tracking/analysis; custom imaging; ABP simulations.
+- **Computational Biophysics Researcher — Streichan Lab** *(Mar 2022–Jun 2025)*  
+  Built Python pipelines to process **large‑scale zebrafish tracking data** (trajectory extraction, velocity/spatial analysis, stats). Automated **microscope/camera** workflows with Python + **PycroManager** to increase imaging throughput. Applied **ML‑based tracking** (idtracker.ai) and validated **physics‑informed models** (Markov, Brownian, probabilistic turning, reflection‑guided) against experiments. Produced figures & reports; collaborated closely with faculty and grads.  
+  *Recognition:* **Dean’s Physics Fellow (2023)**; **Honors Senior Thesis (2024–2025)**.
+
+- **Student Researcher — Research Mentorship Program** *(Jun 2020–Aug 2020)*  
+  Swift **ARKit** prototype delivering **haptic feedback** for object recognition; user survey; 15‑minute talk to ~200 attendees.
+
+**Leadership & Service**  
+- **President, Acts2Fellowship** *(Jun 2023–Present)* — Led programming for **100+** members; organized Welcome Week reaching **1,000+** participants; mentored student leaders; emceed for **200+** attendees.  
+- **Lead Audio Engineer** *(Jun 2022–Present)* — Coordinated live audio for events (60–300+ ppl); trained 5 new members weekly; ensured consistent sound quality.
+
+**Outreach & Mentorship**  
+Anchor Youth Ministry — **STEAM Camp Counselor / TA** *(Summer 2024, 2025)*  
+Lompoc Unified School District — **Physics Outreach Instructor Aide** *(2022–Present)*  
+Acts2Fellowship — **Gauchoback 1‑on‑1 Mentor** *(2023–Present)*  
+Friends of Children with Special Needs — **Lead CS Instructor** *(2016–2021)*
+
+**Honors & Awards**  
+Dean’s Physics Fellow (Summer Undergraduate Research Fellowship, 2023)  
+College of Creative Studies Honors (2021–2025)
 
 **Skills**  
-Python · Java · C/C++ · MATLAB · Data Viz · Linux · Git
+Python, Java, C/C++, R, MATLAB, SQL, Swift, HTML/CSS, LaTeX, Git/GitHub, Jupyter, Linux/Unix; NumPy, Pandas, Matplotlib, Seaborn, scikit‑learn, TensorFlow/PyTorch; Neural Networks; Data Analysis & Visualization; Image Processing; Experimental Design; Microscopy.
+
+**Links**  
+[LinkedIn](https://www.linkedin.com/in/ezhu03/) · [GitHub](https://github.com/ezhu03) · [Email](mailto:ejzhu@usc.edu) · [Resume PDF](assets/files/Eric_Zhu_Resume.pdf) · [CV PDF](assets/files/Eric_Zhu_CV.pdf)
+
+> Keep your PDFs in `assets/files/` and swap filenames without changing the page.
   </script>
 
   <!-- Lightweight Markdown parser (headings, bold/italic, links, images, lists, code) -->
