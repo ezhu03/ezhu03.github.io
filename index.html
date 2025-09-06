@@ -106,9 +106,31 @@
         linear-gradient(#fff,#fff) padding-box,
         linear-gradient(135deg, rgba(43,106,255,.22), rgba(0,200,150,.18)) border-box;
     }
+
+  /* ===== Mouse interactivity ===== */
+  /* Custom cursor dot (desktop only) */
+  @media (hover: hover) and (pointer: fine){
+    #cursor{position:fixed;top:0;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--accent);opacity:.7;mix-blend-mode:multiply;pointer-events:none;z-index:1000;transform:translate3d(-100px,-100px,0)}
+  }
+  /* Spotlight that follows mouse (only on playful sections) */
+  #spotlight{position:fixed;inset:0;pointer-events:none;z-index:5;opacity:0;transition:opacity .2s ease}
+  #spotlight.on{opacity:.9}
+
+  /* Tilt targets */
+  .tilt{will-change: transform; transition: transform .15s ease; transform-style:preserve-3d}
+  .tilt:hover{transform: translateZ(0) scale(1.01)}
+
+  /* Ripple effect for links/buttons */
+  .ripple{position:absolute;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);background:rgba(43,106,255,.22);animation:ripple .6s ease-out forwards}
+  @keyframes ripple{from{width:0;height:0;opacity:.6} to{width:160px;height:160px;opacity:0}}
+
+  /* Make anchors relatively positioned to contain ripples (playful only) */
+  .playful .md a{position:relative;overflow:hidden}
   </style>
 </head>
 <body>
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="spotlight" aria-hidden="true"></div>
   <header>
     <div class="nav">
       <div class="brand">Eric Zhu ✨</div>
@@ -296,6 +318,83 @@ Python, Java, C/C++, R, MATLAB, SQL, Swift, HTML/CSS, LaTeX, Git/GitHub, Jupyter
       }
       staggerIn('about-md');
       staggerIn('projects-md');
+
+      // ===== Mouse interactivity (cursor, spotlight, tilt, ripples) =====
+      (function(){
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+        if(!fine) return; // skip on touch devices
+
+        // 1) Cursor dot that eases toward mouse
+        const cursor = document.getElementById('cursor');
+        let cx=-100, cy=-100, tx=-100, ty=-100;
+        function loop(){
+          cx += (tx - cx)*0.18; cy += (ty - cy)*0.18;
+          cursor.style.transform = `translate3d(${cx}px,${cy}px,0)`;
+          requestAnimationFrame(loop);
+        }
+        window.addEventListener('mousemove', (e)=>{ tx=e.clientX; ty=e.clientY; });
+        requestAnimationFrame(loop);
+
+        // 2) Spotlight: radial gradient under the cursor that only shows over playful sections
+        const spot = document.getElementById('spotlight');
+        function setSpot(x,y){
+          spot.style.background = `radial-gradient(180px 180px at ${x}px ${y}px, rgba(43,106,255,.10), rgba(0,0,0,0))`;
+        }
+        document.addEventListener('mousemove', (e)=>{ setSpot(e.clientX, e.clientY); });
+        ['about','projects'].forEach(id=>{
+          const sec = document.getElementById(id);
+          if(!sec) return;
+          sec.addEventListener('mouseenter', ()=> spot.classList.add('on'));
+          sec.addEventListener('mouseleave', ()=> spot.classList.remove('on'));
+        });
+
+        if(reduce) return; // do not add tilt/ripples if reduced motion
+
+        // 3) Tilt effect on images inside playful sections
+        function attachTilt(rootId){
+          const root = document.getElementById(rootId); if(!root) return;
+          root.querySelectorAll('img').forEach(img=>{
+            img.classList.add('tilt');
+            const bounds = ()=> img.getBoundingClientRect();
+            let raf=0;
+            function onMove(ev){
+              cancelAnimationFrame(raf);
+              raf = requestAnimationFrame(()=>{
+                const b = bounds();
+                const x = (ev.clientX - b.left)/b.width - .5; // -0.5..0.5
+                const y = (ev.clientY - b.top)/b.height - .5;
+                const rx = (y * -8);
+                const ry = (x * 10);
+                img.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+              });
+            }
+            function onLeave(){ img.style.transform = ''; }
+            img.addEventListener('mousemove', onMove);
+            img.addEventListener('mouseleave', onLeave);
+          });
+        }
+        attachTilt('about-md');
+        attachTilt('projects-md');
+
+        // 4) Ripple on clicks for links/buttons in playful sections
+        function addRipples(rootId){
+          const root = document.getElementById(rootId); if(!root) return;
+          root.addEventListener('click', (e)=>{
+            const a = e.target.closest('a');
+            if(!a || !root.contains(a)) return;
+            const r = document.createElement('span');
+            r.className = 'ripple';
+            const rect = a.getBoundingClientRect();
+            r.style.left = (e.clientX - rect.left) + 'px';
+            r.style.top = (e.clientY - rect.top) + 'px';
+            a.appendChild(r);
+            setTimeout(()=> r.remove(), 620);
+          });
+        }
+        addRipples('about-md');
+        addRipples('projects-md');
+      })();
 
       // Nav highlighting
       const links = Array.from(document.querySelectorAll('[data-nav]'));
