@@ -118,9 +118,11 @@
     }
 
   /* ===== Mouse interactivity ===== */
-  /* Custom cursor dot (desktop only) */
+  /* Custom cursor dot + soft trailing ring (desktop only) */
   @media (hover: hover) and (pointer: fine){
-    #cursor{position:fixed;top:0;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--accent);opacity:.7;mix-blend-mode:multiply;pointer-events:none;z-index:1000;transform:translate3d(-100px,-100px,0)}
+    #cursor{position:fixed;top:0;left:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--accent);opacity:.18;mix-blend-mode:multiply;pointer-events:none;z-index:1000;box-shadow:0 0 24px rgba(43,106,255,.35),0 0 60px rgba(43,106,255,.15);filter:blur(0.2px);transform:translate3d(-100px,-100px,0)}
+    #cursor-ring{position:fixed;top:0;left:0;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;border:2px solid rgba(43,106,255,.35);background:transparent;pointer-events:none;z-index:999;mix-blend-mode:multiply;opacity:.65;transform:translate3d(-100px,-100px,0)}
+    #cursor-ring.shrink{transform:translate3d(var(--x, -100px), var(--y, -100px), 0) scale(.85);opacity:.9;border-color:rgba(43,106,255,.6)}
   }
   /* Spotlight that follows mouse (only on playful sections) */
   #spotlight{position:fixed;inset:0;pointer-events:none;z-index:5;opacity:0;transition:opacity .2s ease}
@@ -140,6 +142,7 @@
 </head>
 <body>
   <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
   <div id="spotlight" aria-hidden="true"></div>
   <header>
     <div class="nav">
@@ -333,16 +336,30 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
         const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
         if(!fine) return; // skip on touch devices
 
-        // 1) Cursor dot that eases toward mouse
+        // 1) Cursor dot + trailing ring with eased springy motion
         const cursor = document.getElementById('cursor');
-        let cx=-100, cy=-100, tx=-100, ty=-100;
+        const ring = document.getElementById('cursor-ring');
+        let cx=-100, cy=-100, tx=-100, ty=-100;   // dot: current & target
+        let rx=-100, ry=-100;                     // ring: current
+
         function loop(){
-          cx += (tx - cx)*0.18; cy += (ty - cy)*0.18;
+          // dot follows faster
+          cx += (tx - cx)*0.22; cy += (ty - cy)*0.22;
           cursor.style.transform = `translate3d(${cx}px,${cy}px,0)`;
+          // ring follows slower for a playful lag
+          rx += (tx - rx)*0.10; ry += (ty - ry)*0.10;
+          ring.style.transform = `translate3d(${rx}px,${ry}px,0)`;
           requestAnimationFrame(loop);
         }
         window.addEventListener('mousemove', (e)=>{ tx=e.clientX; ty=e.clientY; });
         requestAnimationFrame(loop);
+
+        // scale the ring a bit over interactive elements
+        const hoverables = document.querySelectorAll('a, button, [role="button"], .card, img');
+        hoverables.forEach(el=>{
+          el.addEventListener('mouseenter', ()=> ring.classList.add('shrink'));
+          el.addEventListener('mouseleave', ()=> ring.classList.remove('shrink'));
+        });
 
         // 2) Spotlight: radial gradient under the cursor that only shows over playful sections
         const spot = document.getElementById('spotlight');
