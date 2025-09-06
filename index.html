@@ -54,6 +54,38 @@
       section{padding:22px}
       .card img{height:160px}
     }
+
+    /* ===== Playful styling for About & Projects only (not Resume) ===== */
+    .playful .md h1,
+    .playful .md h2 { position: relative; display: inline-block }
+    .playful .md h1::after,
+    .playful .md h2::after{
+      content:""; position:absolute; left:4px; right:-6px; bottom:-4px; height:8px;
+      background: linear-gradient(90deg, rgba(43,106,255,.25), rgba(43,106,255,.05));
+      border-radius:8px; pointer-events:none;
+    }
+    /* fun prefix for project headings */
+    #projects.playful .md h3::before{ content:"✨ "; }
+
+    /* Links become soft pills in playful sections */
+    .playful .md a{ display:inline-block; padding:4px 10px; border:1px solid var(--border); border-radius:999px; background:var(--card); text-decoration:none; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease }
+    .playful .md a:hover{ transform: translateY(-1px); box-shadow: var(--shadow); background:#fff; text-decoration:none }
+
+    /* Images: gentle hover lift */
+    .playful .md img{ transition: transform .22s ease, box-shadow .22s ease; box-shadow: 0 2px 10px rgba(17,17,17,0.04) }
+    .playful .md img:hover{ transform: scale(1.015); box-shadow: 0 10px 26px rgba(17,17,17,0.10) }
+
+    /* List bullets a bit roomier */
+    .playful .md li{ margin: 8px 0 }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .playful .md a, .playful .md img{ transition: none }
+    }
+
+    /* Section reveal animation (applied via JS to child nodes) */
+    @keyframes floatIn{ from{ opacity:0; transform: translateY(6px) scale(.98) } to{ opacity:1; transform:none } }
+    .reveal{ animation: floatIn .5s ease both }
   </style>
 </head>
 <body>
@@ -69,13 +101,13 @@
   </header>
 
   <main>
-    <section id="about">
+    <section id="about" class="playful">
       <div id="about-md" class="md"></div>
       <p class="muted">Edit the <strong>About</strong> section by changing the markdown inside the
         <code>&lt;script type="text/markdown" id="about-src"&gt;</code> block below.</p>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="playful">
       <h2>Projects</h2>
       <div id="projects-md" class="md"></div>
       <div class="muted" style="margin-top:8px">Tip: add images with Markdown like <code>![](assets/images/project1.jpg)</code>. Images scale automatically.</div>
@@ -229,6 +261,21 @@ Python, Java, C/C++, R, MATLAB, SQL, Swift, HTML/CSS, LaTeX, Git/GitHub, Jupyter
       render('about-src','about-md');
       render('projects-src','projects-md');
       render('resume-src','resume-md');
+
+      // Playful stagger for About & Projects only
+      function staggerIn(containerId){
+        const el = document.getElementById(containerId);
+        if(!el) return;
+        const kids = Array.from(el.children);
+        let d = 0;
+        kids.forEach(k=>{
+          k.classList.add('reveal');
+          k.style.animationDelay = (d/1000)+'s';
+          d += 60; // 60ms increments for a subtle cascade
+        });
+      }
+      staggerIn('about-md');
+      staggerIn('projects-md');
 
       // Nav highlighting
       const links = Array.from(document.querySelectorAll('[data-nav]'));
