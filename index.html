@@ -10,7 +10,19 @@
       --bg:#ffffff; --text:#111111; --muted:#5f6c7b; --accent:#2b6aff; --border:#e8edf2; --card:#f8fafc;
       --maxw: 860px; --shadow: 0 4px 20px rgba(17,17,17,0.06);
     }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;line-height:1.6}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;line-height:1.6;}
+    /* subtle background blobs for a playful vibe */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:
+        radial-gradient(600px 600px at -10% -10%, rgba(43,106,255,0.07), transparent 60%),
+        radial-gradient(500px 500px at 110% 10%, rgba(255,170,0,0.06), transparent 60%),
+        radial-gradient(520px 520px at 30% 120%, rgba(0,200,150,0.05), transparent 60%);
+    }
     *{box-sizing:border-box}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
@@ -86,15 +98,23 @@
     /* Section reveal animation (applied via JS to child nodes) */
     @keyframes floatIn{ from{ opacity:0; transform: translateY(6px) scale(.98) } to{ opacity:1; transform:none } }
     .reveal{ animation: floatIn .5s ease both }
+    /* Gradient border & extra rounding for playful sections only */
+    section.playful{
+      border:1px solid transparent;
+      border-radius:20px;
+      background:
+        linear-gradient(#fff,#fff) padding-box,
+        linear-gradient(135deg, rgba(43,106,255,.22), rgba(0,200,150,.18)) border-box;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="nav">
-      <div class="brand">Eric Zhu</div>
+      <div class="brand">Eric Zhu ✨</div>
       <ul class="menu" role="navigation">
-        <li><a href="#about" data-nav>About</a></li>
-        <li><a href="#projects" data-nav>Projects</a></li>
+        <li><a href="#about" data-nav>About 👋</a></li>
+        <li><a href="#projects" data-nav>Projects 🚀</a></li>
         <li><a href="#resume" data-nav>Resume</a></li>
       </ul>
     </div>
@@ -121,7 +141,7 @@
   </main>
 
   <footer>
-    © <span id="year"></span> Eric Zhu · Built with plain HTML + Markdown
+    © <span id="year"></span> Eric Zhu · Built with plain HTML + Markdown ✨
   </footer>
 
   <!-- ========================= -->
