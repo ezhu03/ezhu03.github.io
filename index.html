@@ -1,46 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Personal Website</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eric Zhu — Personal Site</title>
+  <!-- Inline light theme styles so the file is fully self‑contained -->
+  <style>
+    :root{
+      --bg:#ffffff; --text:#111111; --muted:#5f6c7b; --accent:#2b6aff; --border:#e8edf2; --card:#f8fafc;
+      --maxw: 860px; --shadow: 0 4px 20px rgba(17,17,17,0.06);
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;line-height:1.6}
+    *{box-sizing:border-box}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{position:sticky;top:0;background:rgba(255,255,255,0.8);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border);z-index:10}
+    .nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+    .brand{font-weight:700;letter-spacing:.2px}
+    .menu{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    .menu a{padding:6px 8px;border-radius:8px}
+    .menu a[aria-current="page"], .menu a:hover{background:var(--card)}
+
+    main{max-width:var(--maxw);margin:28px auto;padding:0 16px}
+    section{scroll-margin-top:72px;margin:44px 0;padding:28px;border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+    h1,h2{line-height:1.25;margin:0 0 12px 0}
+    h1{font-size:clamp(26px,3.2vw,34px)}
+    h2{font-size:clamp(20px,2.6vw,26px)}
+    p{margin:10px 0;color:var(--muted)}
+    .lead{font-size:1.05rem;color:#2b3a4a}
+
+    /* Project cards */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+    .card img{width:100%;height:180px;object-fit:cover;display:block}
+    .card .content{padding:14px}
+    .card h3{margin:0 0 6px 0;font-size:18px}
+    .card p{margin:0;color:var(--muted)}
+
+    /* Markdown content defaults */
+    .md h1{font-size:1.6rem}
+    .md h2{font-size:1.35rem}
+    .md h3{font-size:1.15rem}
+    .md ul{padding-left:1.2rem}
+    .md li{margin:6px 0}
+    .md img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--border)}
+    .muted{color:var(--muted)}
+
+    footer{max-width:var(--maxw);margin:24px auto 56px;padding:0 16px;color:var(--muted)}
+
+    /* Mobile tweaks */
+    @media (max-width: 560px){
+      .menu{gap:10px}
+      section{padding:22px}
+      .card img{height:160px}
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="home">
-            <h1>Your Name</h1>
-            <p>Welcome to my personal website!</p>
-        </section>
-        <section id="about">
-            <h2>About Me</h2>
-            <p>Write a short bio about yourself here.</p>
-        </section>
-        <section id="projects">
-            <h2>Projects</h2>
-            <ul>
-                <li>Project 1 - Description</li>
-                <li>Project 2 - Description</li>
-            </ul>
-        </section>
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Your Name</p>
-    </footer>
-    <script src="js/main.js"></script>
+  <header>
+    <div class="nav">
+      <div class="brand">Eric Zhu</div>
+      <ul class="menu" role="navigation">
+        <li><a href="#about" data-nav>About</a></li>
+        <li><a href="#projects" data-nav>Projects</a></li>
+        <li><a href="#resume" data-nav>Resume</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <div id="about-md" class="md"></div>
+      <p class="muted">Edit the <strong>About</strong> section by changing the markdown inside the
+        <code>&lt;script type="text/markdown" id="about-src"&gt;</code> block below.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div id="projects-md" class="md"></div>
+      <div class="muted" style="margin-top:8px">Tip: add images with Markdown like <code>![](assets/images/project1.jpg)</code>. Images scale automatically.</div>
+    </section>
+
+    <section id="resume">
+      <h2>Resume</h2>
+      <div id="resume-md" class="md"></div>
+      <p class="muted">You can also link a PDF like <code>[Download PDF](assets/files/Eric_Zhu_Resume.pdf)</code>.</p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Eric Zhu · Built with plain HTML + Markdown
+  </footer>
+
+  <!-- ========================= -->
+  <!-- Editable Markdown content -->
+  <!-- ========================= -->
+  <script type="text/markdown" id="about-src">
+# Hi, I'm Eric 👋
+I'm a USC MSCS student and UCSB biophysics grad interested in data, ML, and computational biology. I build experimental–computational pipelines, analyze behavior in zebrafish, and ship clean, reliable software.
+
+- ⚙️ Languages/Tools: Python, Java, C/C++, MATLAB, R, Linux, Git
+- 📚 Interests: biophysics, data engineering, sports analytics
+- ✉️ Reach me: [email@example.com](mailto:email@example.com)
+  </script>
+
+  <script type="text/markdown" id="projects-src">
+### Zebrafish Group Behavior Modeling
+![Zebrafish project](assets/images/zebra-thumb.jpg)
+Built a multilayer model of larval movement; automated tracking with idtracker.ai; simulated reflection-driven navigation.
+
+### Spikeball Tournament Analytics
+![Spikeball](assets/images/spikeball.jpg)
+Designed a small analytics pipeline to seed brackets and summarize team ELO changes across events.
+
+### 2K Ratings Explorer
+![2K ratings](assets/images/2k.jpg)
+Scraped historical player ratings and built visualizations; experimented with simple regression baselines.
+  </script>
+
+  <script type="text/markdown" id="resume-src">
+**Education**  
+M.S. Computer Science, University of Southern California  
+B.S. Physics (Biophysics), UC Santa Barbara
+
+**Experience**  
+- *Computational Biophysics Researcher — Streichan Lab*  
+  Python + MATLAB pipelines for tracking/analysis; custom imaging; ABP simulations.
+
+**Skills**  
+Python · Java · C/C++ · MATLAB · Data Viz · Linux · Git
+  </script>
+
+  <!-- Lightweight Markdown parser (headings, bold/italic, links, images, lists, code) -->
+  <script>
+    (function(){
+      const esc = s => s.replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
+      function md(md){
+        // code blocks (triple backticks)
+        md = md.replace(/```([\s\S]*?)```/g, (_,c)=>`<pre><code>${esc(c)}</code></pre>`);
+        // inline code
+        md = md.replace(/`([^`]+)`/g,'<code>$1</code>');
+        // images ![alt](src)
+        md = md.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g,'<img alt="$1" src="$2" />');
+        // links [text](url)
+        md = md.replace(/\[([^\]]+)\]\(([^\)]+)\)/g,'<a href="$2">$1</a>');
+        // headings ###, ##, # (support up to h3 for brevity)
+        md = md.replace(/^###\s+(.+)$/gm,'<h3>$1</h3>')
+               .replace(/^##\s+(.+)$/gm,'<h2>$1</h2>')
+               .replace(/^#\s+(.+)$/gm,'<h1>$1</h1>');
+        // bold/italic
+        md = md.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+               .replace(/\*([^*]+)\*/g,'<em>$1</em>');
+        // unordered lists
+        md = md.replace(/^(?:-\s+.*(?:\n|$))+?/gm, block => {
+          const items = block.trim().split(/\n/).map(l=>l.replace(/^-\s+/,'').trim()).filter(Boolean);
+          return `<ul>` + items.map(i=>`<li>${i}</li>`).join('') + `</ul>`;
+        });
+        // paragraphs
+        md = md.split(/\n{2,}/).map(p=>/^\s*<\/?(h\d|ul|pre|img|p|blockquote|div|code)/.test(p.trim())?p:`<p>${p.replace(/\n/g,'<br>')}</p>`).join('\n');
+        return md;
+      }
+      function render(srcId, targetId){
+        const src = document.getElementById(srcId);
+        const target = document.getElementById(targetId);
+        if(src && target){ target.innerHTML = md(src.textContent.trim()); }
+      }
+      render('about-src','about-md');
+      render('projects-src','projects-md');
+      render('resume-src','resume-md');
+
+      // Nav highlighting
+      const links = Array.from(document.querySelectorAll('[data-nav]'));
+      const setActive = () => {
+        const hash = location.hash || '#about';
+        links.forEach(a=>a.removeAttribute('aria-current'));
+        const active = links.find(a=>a.getAttribute('href')===hash);
+        if(active) active.setAttribute('aria-current','page');
+      };
+      window.addEventListener('hashchange', setActive);
+      setActive();
+
+      // year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
 </body>
 </html>
