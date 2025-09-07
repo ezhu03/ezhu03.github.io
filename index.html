@@ -159,7 +159,6 @@
       <ul class="menu" role="navigation">
         <li><a href="#about" data-nav>About 👋</a></li>
         <li><a href="#projects" data-nav>Projects 🚀</a></li>
-        <li><a href="#community" data-nav>Community 🤝</a></li>
         <li><a href="#resume" data-nav>Resume</a></li>
       </ul>
     </div>
@@ -178,11 +177,6 @@
       <div class="muted" style="margin-top:8px">Tip: add images with Markdown like <code>![](assets/images/project1.jpg)</code>. Images scale automatically.</div>
     </section>
 
-    <section id="community" class="playful">
-      <h2>Community</h2>
-      <div id="community-md" class="md"></div>
-      <div class="muted" style="margin-top:8px">Faith & service: Acts2Fellowship (SB) · Generations LA (Los Angeles)</div>
-    </section>
 
     <section id="resume">
       <h2>Resume</h2>
@@ -198,13 +192,13 @@
   <!-- ========================= -->
   <!-- Editable Markdown content -->
   <!-- ========================= -->
-  <script type="text/markdown" id="about-src">
 # Hi, I'm Eric 👋
 I'm a USC **M.S. in Computer Science** student and UCSB **B.S. in Physics (CCS, High Honors; minor in Statistics & Data Science, GPA 3.93/4.0)**. I build experimental–computational pipelines, clean data systems, and physics‑informed models — recently focusing on **larval zebrafish locomotion** and lightweight ML for analytics. I love turning messy measurements into clear, testable insights and polished visuals.
 
 I’m currently at USC (Viterbi) and previously researched in the **Streichan Lab** at UCSB as a Computational Biophysics Researcher (Dean’s Physics Fellow; Honors Senior Thesis). I also prototype playful tools — from **haptics in AR** to **wearables** — and run data‑driven club events.
 
 > *Mission:* build simple systems that stay fast, reproducible, and useful — from lab pipelines to data apps.
+Beyond school, I serve with **Acts2Fellowship** in Santa Barbara (President; Lead Audio) and, now in Los Angeles, stay plugged into **Generations LA** helping with mentoring and music/AV.
   </script>
 
   <script type="text/markdown" id="projects-src">
@@ -239,20 +233,6 @@ Swift app using **ARKit** + **Core Haptics** to recognize shapes and return dist
 **Links:** [Repo](https://github.com/ezhu03/iFeel-Haptics)
   </script>
 
-  <script type="text/markdown" id="community-src">
-### Acts2Fellowship — Santa Barbara
-**President (Jun 2023–Present)** — Plan, advertise, and run weekly programs for **100+**; recruit & mentor leaders; emcee and present to **200+**; coordinate **Welcome Week** reaching **1,000+** across events.  
-**Lead Audio Engineer (Jun 2022–Present)** — Live sound for 60–300+‑person events; real‑time EQ & troubleshooting; train a team of 5 newcomers weekly.
-
-### Generations LA — Los Angeles
-Participate in **Generations LA** (church network in LA) while at USC; continue mentoring, serving in music/AV, and plugging into college & young adult ministry.
-
-### Outreach & Mentorship
-**Anchor Youth Ministry** — STEAM Camp Counselor / TA *(Summer 2024, 2025)*  
-**Lompoc Unified School District** — Physics Outreach Instructor Aide *(2022–Present)*  
-**Acts2Fellowship** — Gauchoback 1‑on‑1 Mentor *(2023–Present)*  
-**FCSN** — Lead CS Instructor *(2016–2021)*
-  </script>
 
   <script type="text/markdown" id="resume-src">
 **Education**
@@ -330,7 +310,6 @@ Participate in **Generations LA** (church network in LA) while at USC; continue 
       }
       render('about-src','about-md');
       render('projects-src','projects-md');
-      render('community-src','community-md');
       render('resume-src','resume-md');
 
       // Playful stagger for About & Projects only
@@ -347,7 +326,6 @@ Participate in **Generations LA** (church network in LA) while at USC; continue 
       }
       staggerIn('about-md');
       staggerIn('projects-md');
-      staggerIn('community-md');
 
       // ===== Mouse interactivity (cursor, spotlight, tilt, ripples) =====
       (function(){
@@ -414,9 +392,9 @@ Participate in **Generations LA** (church network in LA) while at USC; continue 
           const x = e.clientX, y = e.clientY;
           // Create 3 waves with increasing scale and duration, like expanding circles with damping
           const waves = [
-            {delay: 0,    scale: 7.5,  dur: 1.6},
-            {delay: 140,  scale: 10.0, dur: 2.0},
-            {delay: 280,  scale: 12.5, dur: 2.4}
+            {delay: 0,    scale: 9.0,  dur: 2.0},
+            {delay: 320,  scale: 12.0, dur: 2.4},
+            {delay: 760,  scale: 15.0, dur: 2.8}
           ];
           waves.forEach(w=>{
             setTimeout(()=>{
@@ -433,7 +411,7 @@ Participate in **Generations LA** (church network in LA) while at USC; continue 
               // Damped waves: longer duration for larger rings
               ring.style.setProperty('--dur', w.dur + 's');
               wake.appendChild(ring);
-              setTimeout(()=> ring.remove(), (w.dur*1000)+400);
+              setTimeout(()=> ring.remove(), (w.dur*1000)+600);
             }, w.delay);
           });
         }, {passive:true});
