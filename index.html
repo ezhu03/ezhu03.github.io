@@ -49,6 +49,12 @@
     .card h3{margin:0 0 6px 0;font-size:18px}
     .card p{margin:0;color:var(--muted)}
 
+    /* Project blocks (auto-wrapped from markdown) */
+    #projects .md .project-card{border:1px solid var(--border); border-radius:16px; background:#fff; box-shadow:var(--shadow); padding:14px 16px; margin:14px 0; transition: transform .18s ease, box-shadow .22s ease}
+    #projects .md .project-card:hover{transform: translateY(-4px) scale(1.01); box-shadow: 0 12px 30px rgba(17,17,17,.12)}
+    #projects .md .project-card:focus-within{outline: 2px solid rgba(43,106,255,.28); outline-offset: 2px}
+    #projects .md .project-card img{border-radius:12px;}
+
     /* Markdown content defaults */
     .md h1{font-size:1.6rem}
     .md h2{font-size:1.35rem}
@@ -310,6 +316,40 @@ Swift app using **ARKit** + **Core Haptics** to recognize shapes and return dist
       }
       render('about-src','about-md');
       render('projects-src','projects-md');
+      // Group each project (H3 + following nodes until next H3) into a rounded card
+      (function wrapProjects(){
+        const container = document.getElementById('projects-md');
+        if(!container) return;
+        // prevent double-wrapping
+        if(container.querySelector('.project-card')) return;
+        const nodes = Array.from(container.childNodes);
+        let i=0;
+        while(i < nodes.length){
+          const n = nodes[i];
+          if(n.nodeType===1 && n.tagName==='H3'){
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.setAttribute('tabindex','0');
+            // move the H3 and subsequent siblings until next H3 into the card
+            container.insertBefore(card, n);
+            while(i < nodes.length){
+              const cur = nodes[i];
+              if(cur.nodeType===1 && cur.tagName==='H3' && cur !== n) break;
+              card.appendChild(cur);
+              nodes.splice(i,1); // remove from list without incrementing i
+            }
+            // collect content until before the next H3
+            while(i < nodes.length){
+              const cur = nodes[i];
+              if(cur.nodeType===1 && cur.tagName==='H3') break;
+              card.appendChild(cur);
+              nodes.splice(i,1);
+            }
+          }else{
+            i++;
+          }
+        }
+      })();
       render('resume-src','resume-md');
 
       // Playful stagger for About & Projects only
