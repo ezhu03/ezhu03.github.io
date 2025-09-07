@@ -52,13 +52,13 @@
     /* Project blocks (auto-wrapped from markdown) */
     @keyframes cardPopBounce{
       0%{transform: translateY(0) scale(1)}
-      60%{transform: translateY(-10px) scale(1.12)}
-      85%{transform: translateY(-7px) scale(1.07)}
-      100%{transform: translateY(-8px) scale(1.08)}
+      60%{transform: translateY(-8px) scale(1.08)}
+      85%{transform: translateY(-6px) scale(1.045)}
+      100%{transform: translateY(-6px) scale(1.05)}
     }
     #projects .md .project-card{border:1px solid var(--border); border-radius:16px; background:#fff; box-shadow:var(--shadow); padding:14px 16px; margin:14px 0; transition: transform .18s ease, box-shadow .24s ease; will-change: transform, box-shadow; transform-origin: center}
-    #projects .md .project-card:hover{transform: translateY(-8px) scale(1.08); box-shadow: 0 18px 40px rgba(17,17,17,.16); animation: cardPopBounce .36s cubic-bezier(.2,.8,.2,1)}
-    #projects .md .project-card:focus-within{outline: 2px solid rgba(43,106,255,.28); outline-offset: 2px; transform: translateY(-8px) scale(1.08); box-shadow: 0 18px 40px rgba(17,17,17,.16); animation: cardPopBounce .36s cubic-bezier(.2,.8,.2,1)}
+    #projects .md .project-card:hover{transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(17,17,17,.14); animation: cardPopBounce .36s cubic-bezier(.2,.8,.2,1)}
+    #projects .md .project-card:focus-within{outline: 2px solid rgba(43,106,255,.28); outline-offset: 2px; transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(17,17,17,.14); animation: cardPopBounce .36s cubic-bezier(.2,.8,.2,1)}
     #projects .md .project-card img{border-radius:12px;}
 
     /* Markdown content defaults */
@@ -80,6 +80,9 @@
     }
 
     /* ===== Playful styling for About & Projects only (not Resume) ===== */
+    /* About section: force uniform black text */
+    #about .md, #about .md p, #about .md li{ color:#111 }
+    #about .md a{ color:#111; border-color: var(--border); background: var(--card) }
     /* ===== Resume (uniform professional style) ===== */
     #resume .md{color:#2b3a4a}
     #resume .md h2{margin-top:0}
@@ -212,8 +215,8 @@ I'm a USC **M.S. in Computer Science** student and UCSB **B.S. in Physics (CCS, 
 
 I’m currently at USC (Viterbi) and previously researched in the **Streichan Lab** at UCSB as a Computational Biophysics Researcher (Dean’s Physics Fellow; Honors Senior Thesis). I also prototype playful tools — from **haptics in AR** to **wearables** — and run data‑driven club events.
 
-> *Mission:* build simple systems that stay fast, reproducible, and useful — from lab pipelines to data apps.
 Beyond school, I serve with **Acts2Fellowship** in Santa Barbara (President; Lead Audio) and, now in Los Angeles, stay plugged into **Generations LA** helping with mentoring and music/AV.
+> *Mission:* build simple systems that stay fast, reproducible, and useful — from lab pipelines to data apps.
   </script>
 
   <script type="text/markdown" id="projects-src">
