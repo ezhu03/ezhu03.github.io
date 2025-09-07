@@ -159,6 +159,7 @@
       <ul class="menu" role="navigation">
         <li><a href="#about" data-nav>About 👋</a></li>
         <li><a href="#projects" data-nav>Projects 🚀</a></li>
+        <li><a href="#community" data-nav>Community 🤝</a></li>
         <li><a href="#resume" data-nav>Resume</a></li>
       </ul>
     </div>
@@ -175,6 +176,12 @@
       <h2>Projects</h2>
       <div id="projects-md" class="md"></div>
       <div class="muted" style="margin-top:8px">Tip: add images with Markdown like <code>![](assets/images/project1.jpg)</code>. Images scale automatically.</div>
+    </section>
+
+    <section id="community" class="playful">
+      <h2>Community</h2>
+      <div id="community-md" class="md"></div>
+      <div class="muted" style="margin-top:8px">Faith & service: Acts2Fellowship (SB) · Generations LA (Los Angeles)</div>
     </section>
 
     <section id="resume">
@@ -201,49 +208,50 @@ I’m currently at USC (Viterbi) and previously researched in the **Streichan La
   </script>
 
   <script type="text/markdown" id="projects-src">
-### Zebrafish Visual Navigation — Reflection‑Guided Model (Thesis)
-![Add a figure or schematic here](assets/images/zfish_model.jpg)
-Physics‑based simulation that reproduces **edge preference** and **symmetry breaking** in half‑sanded arenas by sampling turns toward perceived reflections (Snell’s law). Validated with KS‑tests on radial/angular distributions.  
-**Highlights:** Python simulations; ABP/Vicsek inspiration; kernel‑smoothed KS workflow; speed‑distribution sampling.  
-**Links:** [Thesis PDF](assets/files/Eric_Zhu_Senior_Thesis.pdf) · [Repo](https://github.com/ezhu03/Zebrafish-Modeling)
-
-### Experimental–Computational Pipeline — idtracker.ai → Analysis
-![Placeholder for pipeline diagram or heatmaps](assets/images/pipeline.jpg)
-End‑to‑end pipeline for **tracking**, **cleaning**, and **quantifying** larval trajectories: trajectory extraction, velocity & spatial analysis, and reproducible figures. Automated microscope/camera workflows via Python + PycroManager to boost throughput.  
-**Highlights:** data loaders to tidy frames → npy; polar transforms; KDE heatmaps; robust plotting.  
+### Strategy to Discover the Onset of Visual Cues in Larval Zebrafish
+![Experimental arenas or trajectories placeholder](assets/images/zfish_visual_onset.jpg)
+Developed a CRISPR/Cas9 **TYR knockout** line to create blind controls and analyzed how **visual cues** shape locomotion across **7/14/21 dpf**. Designed comparative experiments (blind vs. sighted), ran idtracker.ai pipelines, and wrote a ~50‑page thesis tying modeling to experiments.  
+**Highlights:** CRISPR/Cas9; experimental design; tracking & kinematics; Python analytics.  
 **Links:** [Repo](https://github.com/ezhu03/Zebrafish-Modeling)
 
-### Brownian vs. Probabilistic Turning — Model Comparisons
-![Add side‑by‑side sim vs. experimental heatmaps](assets/images/sim_compare.jpg)
-Compared baselines (Brownian) against a **single‑parameter turning** model and a **reflection‑following** model; matched clear/sanded distributions and reproduced half‑sanded angular asymmetry.  
-**Highlights:** parameter scans; goodness‑of‑fit KS tests; noise injection; clean APIs for new arenas.  
+### Influence of Perceived Geometry in Zebrafish Group Behavior Patterns
+![Sim vs. tank boundary tests placeholder](assets/images/zfish_geometry.jpg)
+Built a data‑acquisition rig; tested behavior under **varying boundary conditions** in a circular tank; and implemented a **Vicsek‑inspired Markov model** to probe boundary interactions. Presented at UCSB’s Research & Creative Activities Conference (>200 attendees).  
+**Highlights:** idtracker.ai → Python; Markov/Vicsek modeling; boundary interaction tests; poster presentation.  
 **Links:** [Repo](https://github.com/ezhu03/Zebrafish-Modeling)
 
 ### Vibrating Ultrasonic Hoodie — Assistive Wearable
 ![Photo or wiring diagram placeholder](assets/images/ultrasonic_hoodie.jpg)
-Wearable built with **ultrasonic sensors + vibrating motors** to relay spatial information via haptics. Arduino‑based control with proximity‑triggered patterns.  
-**Highlights:** Arduino/C++; sensor fusion; quick user demo.  
+Wearable prototype using **ultrasonic sensors + vibrating motors** to convey spatial info. **Arduino/C++** control; proximity‑triggered feedback patterns; live demo with documented build.  
+**Highlights:** Arduino/C++; sensor fusion; rapid prototyping; UX demo.  
 **Links:** [Repo](https://github.com/ezhu03/Vibrating-Ultrasonic-Glove)
 
+### Predicting NBA 2K Ratings
+![R plots / ratings trends placeholder](assets/images/2k_ratings.jpg)
+Built statistical/ML baselines in **R** to predict 2K ratings from historical performance. Analyzed feature importance and stability across seasons; published an **RMarkdown** report.  
+**Highlights:** scraping; regression baselines; reporting.  
+**Links:** [Demo](https://ezhu03.github.io/Predicting-2K-Ratings/)
+
 ### iFeel — Vibrotactile AR Object Recognition (iOS)
-![iPhone mockup placeholder](assets/images/arkit.jpg)
-Swift app using **ARKit** and **Core Haptics** to recognize basic shapes and trigger distinct haptic feedback. Ran a small user study; presented to ~200 attendees.  
-**Highlights:** Swift; ARKit; Core Haptics; UX survey.  
+![ARKit mockup placeholder](assets/images/arkit.jpg)
+Swift app using **ARKit** + **Core Haptics** to recognize shapes and return distinct vibrotactile patterns. Evaluated via a short user survey; presented to ~200 attendees.  
+**Highlights:** Swift; ARKit; Core Haptics; lightweight user study.  
 **Links:** [Repo](https://github.com/ezhu03/iFeel-Haptics)
+  </script>
 
-### NBA 2K Ratings Explorer
-![Histogram/line plot placeholder](assets/images/2k_ratings.jpg)
-Built statistical baselines in **R** to predict player ratings; explored stability and trends across seasons.  
-**Highlights:** scraping; regression baselines; RMarkdown report.  
-**Links:** [Demo](https://ezhu03.github.io/Predicting-2K-Ratings/) · [Repo](https://ezhu03.github.io/Predicting-2K-Ratings/)
+  <script type="text/markdown" id="community-src">
+### Acts2Fellowship — Santa Barbara
+**President (Jun 2023–Present)** — Plan, advertise, and run weekly programs for **100+**; recruit & mentor leaders; emcee and present to **200+**; coordinate **Welcome Week** reaching **1,000+** across events.  
+**Lead Audio Engineer (Jun 2022–Present)** — Live sound for 60–300+‑person events; real‑time EQ & troubleshooting; train a team of 5 newcomers weekly.
 
-### Spikeball Tournament Analytics
-![Bracket or ELO chart placeholder](assets/images/spikeball_elo.jpg)
-Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize events for club tournaments.  
-**Highlights:** Pandas transforms; Matplotlib visuals; CSV‑driven config.  
-**Links:** [Write‑up](#) · [Repo](#)
+### Generations LA — Los Angeles
+Participate in **Generations LA** (church network in LA) while at USC; continue mentoring, serving in music/AV, and plugging into college & young adult ministry.
 
-> **Tip:** Replace each image with a real screenshot or figure and set links to your repos, demos, or PDFs.
+### Outreach & Mentorship
+**Anchor Youth Ministry** — STEAM Camp Counselor / TA *(Summer 2024, 2025)*  
+**Lompoc Unified School District** — Physics Outreach Instructor Aide *(2022–Present)*  
+**Acts2Fellowship** — Gauchoback 1‑on‑1 Mentor *(2023–Present)*  
+**FCSN** — Lead CS Instructor *(2016–2021)*
   </script>
 
   <script type="text/markdown" id="resume-src">
@@ -322,6 +330,7 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
       }
       render('about-src','about-md');
       render('projects-src','projects-md');
+      render('community-src','community-md');
       render('resume-src','resume-md');
 
       // Playful stagger for About & Projects only
@@ -338,6 +347,7 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
       }
       staggerIn('about-md');
       staggerIn('projects-md');
+      staggerIn('community-md');
 
       // ===== Mouse interactivity (cursor, spotlight, tilt, ripples) =====
       (function(){
