@@ -127,10 +127,10 @@
     #cursor-ring{position:fixed;top:0;left:0;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;border:2px solid rgba(43,106,255,.35);background:transparent;pointer-events:none;z-index:999;mix-blend-mode:multiply;opacity:.65;transform:translate3d(-100px,-100px,0)}
     #cursor-ring.shrink{transform:translate3d(var(--x, -100px), var(--y, -100px), 0) scale(.85);opacity:.9;border-color:rgba(43,106,255,.6)}
     #wake{position:fixed;inset:0;pointer-events:none;z-index:998}
-    .wake-dot{position:absolute;width:var(--w,16px);height:var(--h,16px);border:2px solid rgba(43,106,255,.32);border-radius:50%;transform:translate(-50%,-50%) scale(1);opacity:.85;animation:wake var(--dur,1.2s) cubic-bezier(.17,.67,.22,1) forwards;will-change: transform, opacity}
-    @keyframes wake{to{transform:translate(-50%,-50%) scale(var(--scale,3.2));opacity:0}}
-    .click-wave{position:absolute;width:var(--w,12px);height:var(--h,12px);border:2px solid rgba(43,106,255,.38);border-radius:50%;transform:translate(-50%,-50%) scale(1);opacity:.9;animation:wave var(--dur,1.1s) ease-out forwards;mix-blend-mode:multiply;will-change: transform, opacity}
-    @keyframes wave{to{transform:translate(-50%,-50%) scale(var(--scale,6));opacity:0}}
+    .wake-dot{position:absolute;width:var(--w,16px);height:var(--h,16px);border:2px solid rgba(43,106,255,.28);border-radius:50%;transform:translate(-50%,-50%) scale(1);opacity:.85;animation:wake var(--dur,1.8s) cubic-bezier(.17,.67,.22,1) forwards;will-change: transform, opacity}
+    @keyframes wake{to{transform:translate(-50%,-50%) scale(var(--scale,4.2));opacity:0}}
+    .click-wave{position:absolute;width:var(--w,12px);height:var(--h,12px);border:2px solid rgba(43,106,255,.34);border-radius:50%;transform:translate(-50%,-50%) scale(1);opacity:.9;animation:wave var(--dur,1.8s) ease-out forwards;mix-blend-mode:multiply;will-change: transform, opacity}
+    @keyframes wave{to{transform:translate(-50%,-50%) scale(var(--scale,9));opacity:0}}
   }
   /* Spotlight that follows mouse (only on playful sections) */
   #spotlight{position:fixed;inset:0;pointer-events:none;z-index:5;opacity:0;transition:opacity .2s ease}
@@ -359,12 +359,11 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
         function makeRipple(x,y, speed){
           const s = document.createElement('span');
           s.className = 'wake-dot';
-          // Physics‑inspired parameters: larger & longer ripples at higher speed, with damping
-          // Map speed (px/frame) to [0,1]
+          // Physics‑inspired: larger radius & longer lifetime at higher speed, with damping
           const v = Math.min(speed/18, 1);
-          const scale = 3.2 + 1.4*v;          // 3.2..4.6
-          const dur   = 1.0 + 0.6*v;          // 1.0s..1.6s
-          const size  = 14 + Math.round(10*v);// 14..24 px
+          const scale = 4.2 + 2.2*v;         // farther: 4.2..6.4
+          const dur   = 1.6 + 0.9*v;         // slower: 1.6s..2.5s
+          const size  = 16 + Math.round(12*v);// 16..28 px
           s.style.setProperty('--scale', scale);
           s.style.setProperty('--dur', dur + 's');
           s.style.setProperty('--w', size + 'px');
@@ -372,7 +371,7 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
           s.style.left = x + 'px';
           s.style.top  = y + 'px';
           wake.appendChild(s);
-          setTimeout(()=> s.remove(), (dur*1000)+200);
+          setTimeout(()=> s.remove(), (dur*1000)+300);
         }
 
         function loop(){
@@ -385,10 +384,10 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
           const angle = Math.atan2(dy, dx) * 180/Math.PI; // degrees
           cursor.style.transform = `translate3d(${cx}px,${cy}px,0) rotate(${angle}deg)`;
 
-          // Emit less frequent ripples that get larger with speed
+          // Emit even less frequent ripples, traveling farther and living longer
           rippleDistAcc += speed;
-          // emitEvery grows from ~26px (slow) to ~42px (fast), so fewer ripples overall
-          const emitEvery = 26 + 16*Math.min(speed/18, 1);
+          // emitEvery grows from ~38px (slow) to ~66px (fast)
+          const emitEvery = 38 + 28*Math.min(speed/18, 1);
           if (rippleDistAcc > emitEvery){
             rippleDistAcc = 0;
             makeRipple(lastX, lastY, speed);
@@ -405,9 +404,9 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
           const x = e.clientX, y = e.clientY;
           // Create 3 waves with increasing scale and duration, like expanding circles with damping
           const waves = [
-            {delay: 0,    scale: 5.5, dur: 0.9},
-            {delay: 90,   scale: 7.0, dur: 1.2},
-            {delay: 180,  scale: 8.5, dur: 1.5}
+            {delay: 0,    scale: 7.5,  dur: 1.6},
+            {delay: 140,  scale: 10.0, dur: 2.0},
+            {delay: 280,  scale: 12.5, dur: 2.4}
           ];
           waves.forEach(w=>{
             setTimeout(()=>{
@@ -424,7 +423,7 @@ Lightweight pipeline to **seed brackets**, compute **ELO deltas**, and summarize
               // Damped waves: longer duration for larger rings
               ring.style.setProperty('--dur', w.dur + 's');
               wake.appendChild(ring);
-              setTimeout(()=> ring.remove(), (w.dur*1000)+200);
+              setTimeout(()=> ring.remove(), (w.dur*1000)+400);
             }, w.delay);
           });
         }, {passive:true});
