@@ -50,9 +50,15 @@
     .card p{margin:0;color:var(--muted)}
 
     /* Project blocks (auto-wrapped from markdown) */
-    #projects .md .project-card{border:1px solid var(--border); border-radius:16px; background:#fff; box-shadow:var(--shadow); padding:14px 16px; margin:14px 0; transition: transform .22s cubic-bezier(.2,.7,.2,1), box-shadow .24s ease; will-change: transform, box-shadow; transform-origin: center}
-    #projects .md .project-card:hover{transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(17,17,17,.14)}
-    #projects .md .project-card:focus-within{outline: 2px solid rgba(43,106,255,.28); outline-offset: 2px; transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(17,17,17,.14)}
+    @keyframes cardPopBounce{
+      0%{transform: translateY(0) scale(1)}
+      60%{transform: translateY(-10px) scale(1.12)}
+      85%{transform: translateY(-7px) scale(1.07)}
+      100%{transform: translateY(-8px) scale(1.08)}
+    }
+    #projects .md .project-card{border:1px solid var(--border); border-radius:16px; background:#fff; box-shadow:var(--shadow); padding:14px 16px; margin:14px 0; transition: transform .18s ease, box-shadow .24s ease; will-change: transform, box-shadow; transform-origin: center}
+    #projects .md .project-card:hover{transform: translateY(-8px) scale(1.08); box-shadow: 0 18px 40px rgba(17,17,17,.16); animation: cardPopBounce .36s cubic-bezier(.2,.8,.2,1)}
+    #projects .md .project-card:focus-within{outline: 2px solid rgba(43,106,255,.28); outline-offset: 2px; transform: translateY(-8px) scale(1.08); box-shadow: 0 18px 40px rgba(17,17,17,.16); animation: cardPopBounce .36s cubic-bezier(.2,.8,.2,1)}
     #projects .md .project-card img{border-radius:12px;}
 
     /* Markdown content defaults */
@@ -109,6 +115,8 @@
     /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce){
       .playful .md a, .playful .md img{ transition: none }
+      #projects .md .project-card:hover,
+      #projects .md .project-card:focus-within{ animation: none }
     }
 
     /* Section reveal animation (applied via JS to child nodes) */
